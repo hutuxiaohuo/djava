@@ -1,0 +1,275 @@
+整个流程
+1.fork 一个自己的版本
+2.git clone 到本地
+3.git remote add upstream git://github.com/octocat/Spoon-Knife.git  //起别名
+4.改本地自己的代码，git add   git status git commit  git push  git merge
+
+Git Fork
+	概要： 克隆别人的代码库到自己的项目中，可以作为子模块的形式使用，或二次开发
+	
+	操作流程：
+	在开源项目中点击fork按钮，稍等一会儿，该项目便会拷贝一份到你的respositories中，
+	克隆一份代码到本地：git clone git@github.com:username/Spoon-Knife.git
+	
+	配置：（项目克隆完成后，默认远程的别名为origin，此为我们自己项目中的版本，并非原始作者的代码库）
+	
+	创建原始代码库的别名，方便跟踪代码 git remote add upstream git://github.com/octocat/Spoon-Knife.git
+	git fetch upstream 跟踪原始代码
+	提交代码更新到自己的代码库 git push origin master
+	获取原始代码库的更新
+	git fetch upstream
+	git merge upstream/master
+	
+	如果你希望将自己的代码贡献到原始代码库中，可参见http://help.github.com/send-pull-requests/ 来完成
+	
+	
+git init 产生的目录解释
+error: src refspec master does not match any.
+
+引起该错误的原因是，目录中没有文件，空目录是不能提交上去的
+
+error: insufficient permission for adding an object to repository database ./objects
+服务端没有可写目录的权限
+
+错误提示：fatal: remote origin already exists.
+
+解决办法：$ git remote rm origin
+
+错误提示：error: failed to push som refs to ........
+
+解决办法：$ git pull origin master //先pull 下来 再push 上去
+
+Git init //在当前项目工程下履行这个号令相当于把当前项目git化，变身！
+
+git add .//把当前目次下代码参加git的跟踪中，意思就是交给git经管，提交到本地库
+
+git add <file> //把当前文件参加的git的跟踪中，交给git经管，提交到本地库
+
+git commit -m “…”//相当于写点提交信息
+
+git remote add origin git＠github.com:ellocc/gittest.git //这个相当于指定本地库与github上的哪个项目相连
+
+git push -u origin master //将本地库提交到github上。
+
+git clone git＠github.com:ellocc/gittest.git  //将github上的项目down下来。
+
+git fetch origin //取得长途更新，这里可以看做是筹办要取了
+
+git merge origin/master //把更新的内容归并到本地分支/master
+
+下面是删除文件后的提交
+
+git status //可以看到我们删除的哪些文件
+
+git add .   //删除之后的文件提交git经管。
+
+git rm a.c //删除文件
+
+git rm -r gittest //删除目次
+
+
+
+
+ 1. Git 版本控制系统
+
+相比CVS\SVN优势：
+
+－ 支持离线开发，离线Repository
+－ 强大的分支功能，适合多个独立开发者协作
+－ 速度块
+
+ps:关于git的更详细的介绍于优点在此就不介绍了，教大家怎么用是关键。:）
+
+==============运行环境========
+
+系统：windows
+
+git : Git-1.7.3.1-preview20101002.rar  下载地址：http://d.download.csdn.net/down/3169511/z_y_liu89
+
+===========================
+
+
+2. github是一个git项目托管网站
+
+注册地址：https://github.com/signup/free
+
+ 
+
+3. 安装git程序，执行下面操作
+
+$ cd ~/.ssh    //检查计算机ssh密钥
+
+如果没有提示:No such file or directory 说明你不是第一次使用git,执行下面的操作,清理原有ssh密钥
+
+ $ ls 
+ config id_rsa id_rsa.pub known_hosts
+ $ mkdir key_backup
+ $ cp id_rsa* key_backup
+ $ rm id_rsa*
+
+获得密钥：
+
+ssh-keygen -t rsa -C "defnngj@gmail.com"//填写email地址，然后一直“回车”ok
+
+打开本地..\.ssh\id_rsa.pub文件。此文件里面内容为刚才生成人密钥。$ clip < ~/.ssh/id_rsa.pub
+
+4. 登陆github系统。点击右上角的 Account Settings--->SSH Public keys ---> add another public keys
+
+把你本地生成的密钥复制到里面（key文本框中）， 点击 add key 就ok了
+
+5. 接着打开git ，测试连接是否成功
+
+$ ssh -T git@github.com
+
+如果提示：Hi defnngj You've successfully authenticated, but GitHub does not provide shell access. 说明你连接成功了
+
+6. 设置用户信息：
+
+6.1
+
+$ git config --global user.name "defnngj"//给自己起个用户名
+$ git config --global user.email  "defnngj@gmail.com"//填写自己的邮箱
+
+6.1.1将库克隆到本地代码中
+1）将盘符定位在D盘。
+在git bash中输入 cd /D 注意盘名字一定要是大写。如不输入这个语句 不给git bash定位的话，默认的本地文件位置是在c盘中
+2）找到主仓库地址，执行克隆命令：git clone https://github.com/hutuxiaohuo/djava.git
+3）然后输入 git add test.txt
+	之后输入然后git commit -m "cc"  引号内的内容可以随意改动，这个语句的意思是 给你刚刚上传的文件一个备注，方便查找记忆而已
+git push origin master
+这三个命令式提交修改
+
+6.2
+
+在github中找到 Account Settings--->Account Admin ,找到一下信息：
+
+Your API token is e97279836f0d415a3954c1193dba522f ---keep it secret! Changing your password will
+
+generate a new token
+
+$ git config --global github.user defnngj      //github 上的用户名
+$ git config --global github.token e97279836f0d415a3954c1193dba522f
+
+ 
+
+====================创建一个项目========================
+
+ 1. 回到github首页，点击页面右下角“New Repository”
+
+填写项目信息：
+
+project name: hello world
+
+description : my first project
+
+点击“Create Repository” ； 现在完成了一个项目在github上的创建。
+
+2. 我们需要使用git在本地创建一个相同的项目。
+复制代码
+
+$ makdir ~/hello-world    //创建一个项目hello-world
+$ cd ~/hello-world    //打开这个项目
+$ git init    //初始化 
+$ touch README
+$ git add README   //更新README文件
+$ git commit -m 'first commit'//提交更新，并注释信息“first commit” 
+$ git remote add origin git@github.com:defnngj/hello-world.git   //连接远程github项目  
+$ git push -u origin master   //将本地项目更新到github项目上去
+
+复制代码
+
+ 现在查看github上面的hello world 项目，是不是发现已经将本地中的README文件更新上来了。 :) 恭喜！
+
+ 
+
+------------------------------------关于可能出现的错误----------------------------------
+
+1.在执行
+
+$ git remote addorigin git@github.com:defnngj/hello-world.git
+
+错误提示：fatal: remote origin already exists.
+
+解决办法：
+
+$ git remote rm origin
+
+然后在执行：$ git remote add origin git@github.com:defnngj/hello-world.git 就不会报错误了
+
+ 
+
+2. 在执行
+
+$ git push origin master
+
+错误提示：error:failed to push som refs to.......
+
+解决办法：
+
+$ git pull origin master //先把远程服务器github上面的文件拉先来，再push 上去。
+
+ 
+ 
+git branch 查看本地所有分支 
+git status 查看当前状态 
+git commit 提交 
+git branch -a 查看所有的分支 
+git branch -r 查看本地所有分支 
+git commit -am "init" 提交并且加注释 
+git remote add origin git@192.168.1.119:ndshow 
+git push origin master 将文件给推到服务器上 
+git remote show origin 显示远程库origin里的资源 
+git push origin master:develop 
+git push origin master:hb-dev 将本地库与服务器上的库进行关联 
+git checkout --track origin/dev 切换到远程dev分支 
+git branch -D master develop 删除本地库develop 
+git checkout -b dev 建立一个新的本地分支dev 
+git merge origin/dev 将分支dev与当前分支进行合并 
+git checkout dev 切换到本地dev分支 
+git remote show 查看远程库 
+git add . 
+git rm 文件名(包括路径) 从git中删除指定文件 
+git clone git://github.com/schacon/grit.git 从服务器上将代码给拉下来 
+git config --list 看所有用户 
+git ls-files 看已经被提交的 
+git rm [file name] 删除一个文件 
+git commit -a 提交当前repos的所有的改变 
+git add [file name] 添加一个文件到git index 
+git commit -v 当你用－v参数的时候可以看commit的差异 
+git commit -m "This is the message describing the commit" 添加commit信息 
+git commit -a    -a是代表add，把所有的change加到git index里然后再commit 
+git commit -a -v  一般提交命令 
+git log 看你commit的日志 
+git diff 查看尚未暂存的更新 
+git rm a.a 移除文件(从暂存区和工作区中删除) 
+git rm --cached a.a 移除文件(只从暂存区中删除) 
+git commit -m "remove"  移除文件(从Git中删除) 
+git rm -f a.a 强行移除修改后文件(从暂存区和工作区中删除) 
+git diff --cached 或 $ git diff --staged 查看尚未提交的更新 
+git stash push 将文件给push到一个临时空间中 
+git stash pop 将文件从临时空间pop下来 
+--------------------------------------------------------- 
+git remote add origin git@github.com:username/Hello-World.git 
+git push origin master 将本地项目给提交到服务器中 
+----------------------------------------------------------- 
+git pull 本地与服务器端同步 
+----------------------------------------------------------------- 
+git push (远程仓库名) (分支名) 将本地分支推送到服务器上去。 
+git push origin serverfix:awesomebranch 
+------------------------------------------------------------------ 
+git fetch 相当于是从远程获取最新版本到本地，不会自动merge 
+git commit -a -m "log_message" (-a是提交所有改动，-m是加入log信息) 本地修改同步至服务器端 ： 
+git branch branch_0.1 master                  从主分支master创建branch_0.1分支 
+git branch -m branch_0.1 branch_1.0       将branch_0.1重命名为branch_1.0 
+git checkout branch_1.0/master              切换到branch_1.0/master分支 
+du -hs 
+
+----------------------------------------------------------- 
+mkdir WebApp 
+cd WebApp 
+git init 
+touch README 
+git add README 
+git commit -m 'first commit' 
+git remote add origin git@github.com:daixu/WebApp.git 
+git push -u origin master 
